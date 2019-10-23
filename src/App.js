@@ -4,13 +4,13 @@ import PublicRoute from './routes/Public';
 import HomePage from './pages/Home';
 import UseReducerPage from './pages/hooks/UseReducer';
 import configureStore from './store/ConfigureStore';
+const { rootReducer, initialState } = configureStore
 
 const App = () => {
-  const [state, dispatch] = useReducer(configureStore.rootReducer, configureStore.initialState);
+  const [state, dispatch] = useReducer(rootReducer, initialState);
 
   useEffect(() => {
-    console.log(configureStore.initialTesting)
-    console.log(configureStore.initialState)
+    // console.log(configureStore)
   }, [])
 
   return (
