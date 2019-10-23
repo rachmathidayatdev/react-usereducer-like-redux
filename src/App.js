@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useReducer } from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import PublicRoute from './routes/Public';
+import HomePage from './pages/Home';
+import UseReducerPage from './pages/hooks/UseReducer';
+import configureStore from './store/ConfigureStore';
 
-function App() {
+const App = () => {
+  const [state, dispatch] = useReducer(configureStore.rootReducer, configureStore.initialState);
+
+  useEffect(() => {
+    console.log(configureStore.initialTesting)
+    console.log(configureStore.initialState)
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Router>
+        <Switch>
+          <PublicRoute path="/" component={ HomePage } value={{state, dispatch}} exact/>
+          <PublicRoute path="/hooks/use-reducer" value={{state, dispatch}} component={ UseReducerPage }/>
+        </Switch>
+      </Router>
+    </>
+  )
 }
 
 export default App;
